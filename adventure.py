@@ -54,9 +54,21 @@ while True:
 
     elif command in ["north", "south", "east", "west"]: #navigation through rooms
         if command in rooms[current_room]:
-            current_room = rooms[current_room][command]
-        else:
-            print("You cannot go this way.")
+            next_room = rooms[current_room][command]
+
+            if next_room == "Library" and "candle" not in inventory:
+                print("It is too dark to see, you need some form of light. ")
+
+            elif next_room == "Library" and "candle" not in inventory:
+                print("The front door is locked, perhaps there is a key?")
+                if current_room == "Front Door":
+                    print()
+                    print("You turn the key, and the heavy wooden door slowly creaks open. ")
+                    print("A cold rush of air brushes you face, the fear is over. You escaped the house!")
+                    print("CONGRATULATIONS!")
+            else:
+                current_room = next_room
+
 
     elif command == "take":
         if "item" in rooms[current_room]:
