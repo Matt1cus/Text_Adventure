@@ -1,0 +1,14 @@
+{
+  "name": "The Old House",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "task.allowAutomaticTasks": "on"
+      }
+    },
+    "codespaces": {
+      "openFiles": ["adventure.py"]
+    }
+  }
+}

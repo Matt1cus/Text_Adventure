@@ -7,6 +7,12 @@ def typewriter_print(text):
         time.sleep(0.02)
     print()
 
+def title_print(text):
+    for letter in text:
+        print(letter, end="", flush=True)
+        time.sleep(0.001)
+    print()
+
 #TITLE!!!!!!!!!!!
 TITLE = r"""
 
@@ -56,7 +62,8 @@ rooms = {
     "Kitchen" : {
         "description" : "A rotting scent fills the air, mold and mildew linger on every surface.",
         "west": "Hall",
-        "item" : "candle"
+        "down" : "basement",
+        "item" : "candle",
     },
     "Library" : {
         "description": "Shelves of musty books line the walls.",
@@ -66,11 +73,20 @@ rooms = {
     "Bedroom" : {
         "description" : "A single, creaky bed sits underneath a cracked window.",
         "east" : "Hall",
+        "up" : "Attic",
     },
     "Front Door" : {
         "description" : "A heavy, solid wooden door. Freedom is just on the other side.",
         "north" : "Hall"
     },
+    "Attic" : {
+        "description" : "Dust swirls in a thin stream of moonlight. Old trunks and a broken chair fill the cramped space.",
+        "down" : "Bedroom",
+    },
+    "Basement" : {
+        "description" : "Cold stone walls drip with water from moisture. Something skitters away in the darkness",
+        "up" : "Kitchen",
+    }
 }
 
 shortcuts = {
@@ -78,6 +94,8 @@ shortcuts = {
     "s" : "south",
     "e" : "east",
     "w" : "west",
+    "u" : "up",
+    "d" : "down",
     "i" : "inventory",
     "l" : "look",
 }
@@ -87,11 +105,11 @@ moves = 0
 show_room = True
 
 
-print(TITLE)
-print("You wake up on a cold floor. You have no memory of arriving or how you got here.")
-print("The house is silent, the door is locked.")
+title_print(TITLE)
+typewriter_print("You wake up on a cold floor. You have no memory of arriving or how you got here.")
+typewriter_print("The house is silent, the door is locked.")
 typewriter_print("Find a way out")
-print("Type 'quit' to exit")
+typewriter_print("Type 'quit' to exit")
 print("Type 'help' for more info")
 
 while True:
@@ -113,14 +131,14 @@ while True:
         break
 
     elif command == "help":
-        print("Move:  north, south, east, west (n, s, e, w)")
+        print("Move:  north, south, east, west, up, down (n, s, e, w, u, d)")
         print("Do:    take, look (l), inventory (i)")
         print("Other: help, quit")
 
     elif command == "look":
         show_room = True
 
-    elif command in ["north", "south", "east", "west"]: #navigation through rooms
+    elif command in ["north", "south", "east", "west", "up", "down"]: #navigation through rooms
         if command in rooms[current_room]:
             next_room = rooms[current_room][command]
 
@@ -166,7 +184,5 @@ while True:
 
     else:
         print("Command cannot be understood, type 'help' for commands.")
-
-
 
 
