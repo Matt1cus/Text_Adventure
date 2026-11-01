@@ -49,19 +49,19 @@ rooms = {
     "Hall" : {
         "description" : "A dusty hall, cobwebs are hanging from the ceiling. ",
         "north": "Library",
-        "west": "Kitchen",
-        "east": "Bedroom",
+        "west": "Bedroom",
+        "east": "Kitchen",
         "south": "Front Door"
     },
     "Kitchen" : {
         "description" : "A rotting scent fills the air, mold and mildew linger on every surface.",
         "west": "Hall",
-        "item" : "Candle"
+        "item" : "candle"
     },
     "Library" : {
         "description": "Shelves of musty books line the walls.",
         "south" : "Hall",
-        "item" : "Key",
+        "item" : "key",
     },
     "Bedroom" : {
         "description" : "A single, creaky bed sits underneath a cracked window.",
@@ -100,11 +100,13 @@ while True:
         print("== " + current_room + " ==")
         typewriter_print(rooms[current_room]["description"])
         if "item" in rooms[current_room]:
-        print("You see a ", rooms[current_room]["item"] + ".")
+            print("You see a ", rooms[current_room]["item"] + ".")
         show_room = False
 
     command = input("> ").lower().strip()
-    print("You typed " + command)
+
+    if command in shortcuts:
+        command = shortcuts[command]
 
     if command == "quit":
         print("Goodbye!")
@@ -125,37 +127,45 @@ while True:
             if next_room == "Library" and "candle" not in inventory:
                 print("It is too dark to see, you need some form of light. ")
 
-            elif next_room == "Library" and "candle" not in inventory:
+            elif next_room == "Front Door" and "key" not in inventory:
                 print("The front door is locked, perhaps there is a key?")
 
-                if current_room == "Front Door":
-                    print()
-                    print("You turn the key, and the heavy wooden door slowly creaks open. ")
-                    print("A cold rush of air brushes you face, the fear is over. You escaped the house!")
-                    print("CONGRATULATIONS!")
+
             else:
                 current_room = next_room
                 moves = moves + 1
                 show_room = True
+        else:
+            print("You cannot go this way.")
 
+        if current_room == "Front Door":
+            print()
+            print("You turn the key, and the heavy wooden door slowly creaks open. ")
+            print("A cold rush of air brushes your face, the fear is over. You escaped the house!")
+            print("CONGRATULATIONS!")
+            print("You escaped in", moves, "moves.")
+            break
 
-    elif command == "take":
+    elif command == "take" or command.startswith("take "):
         if "item" in rooms[current_room]:
             item = rooms[current_room]["item"]
-            inventory.append(item)
-            del rooms[current_room]["item"] #this will make sure there is only 1 of the item
-
+            if command == "take" or command == "take " + item:
+                inventory.append(item)
+                del rooms[current_room]["item"] #this will make sure there is only 1 of the item
+                print("You picked up the " + item +".")
+            else:
+                print("You do not see that here.")
         else:
+            print("There is nothing here to take.")
 
-            print("Nothing to take.")
     elif command == "inventory":
-        if len(inventory) < 0: #if u got nothing or pickup nothing
+        if len(inventory) == 0: #if u got nothing or pickup nothing
             print("You aren't carrying anything.")
         else:
-            print("You are carrying", inventory)
+            print("You are carrying " + ", ".join(inventory))
 
     else:
-        print("Command cannot be understood.")
+        print("Command cannot be understood, type 'help' for commands.")
 
 
 
