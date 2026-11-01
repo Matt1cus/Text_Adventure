@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Play The Old House",
+      "type": "shell",
+      "command": "python3 adventure.py",
+      "runOptions": { "runOn": "folderOpen" },
+      "presentation": { "reveal": "always", "focus": true, "panel": "dedicated" },
+      "problemMatcher": []
+    }
+  ]
+}
