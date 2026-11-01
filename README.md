@@ -1,6 +1,10 @@
 This is a simple text-adventure game using python and runs in terminal.
 It uses a typewriter-esque scheme, and has a simple puzzle for you to solve. 
 
+This game integrates concepts from python. This includes the if, else, elif that is common for any text-adventure game. 
+I also included dictionaries to give each room a name, description, the exit to other rooms, and the items in each room. 
+Lists are used to make the inventory function properly and delete items from rooms and add to inventory as necessary. 
+Also used the time library for python to give the type-writer with each letter being created one at a time. 
 
 I hope you enjoy! - Matticus
 
