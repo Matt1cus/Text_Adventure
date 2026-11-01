@@ -62,7 +62,7 @@ rooms = {
     "Kitchen" : {
         "description" : "A rotting scent fills the air, mold and mildew linger on every surface.",
         "west": "Hall",
-        "down" : "basement",
+        "down" : "Basement",
         "item" : "candle",
     },
     "Library" : {
